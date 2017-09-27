@@ -1,0 +1,18 @@
+defaultrouter="NO"
+frr_enable="{% if helpers.exists('OPNsense.frr.general.enabled') and OPNsense.frr.general.enabled == '1' %}YES{% else %}NO{% endif %}"
+
+{% if helpers.exists('OPNsense.frr.general.enabled') and OPNsense.frr.general.enabled == '1' %}
+frr_opnsense_bootup_run="/usr/local/opnsense/scripts/frr/setup.sh"
+{% endif %}
+
+frr_daemons="zebra{%
+if helpers.exists('OPNsense.frr.ospf.enabled') and OPNsense.frr.ospf.enabled == '1' %} ospfd{% endif %}{%
+if helpers.exists('OPNsense.frr.rip.enabled') and OPNsense.frr.rip.enabled == '1' %} ripd{% endif %}{%
+if helpers.exists('OPNsense.frr.bgp.enabled') and OPNsense.frr.bgp.enabled == '1' %} bgpd{% endif %}{%
+if helpers.exists('OPNsense.frr.ospf6.enabled') and OPNsense.frr.ospf6.enabled == '1' %} ospf6d{% endif %}{%
+if helpers.exists('OPNsense.frr.ripng.enabled') and OPNsense.frr.ripng.enabled == '1' %} ripngd{% endif %}{%
+if helpers.exists('OPNsense.frr.isis.enabled') and OPNsense.frr.isis.enabled == '1' %} isisd{% endif %}"
+#frr_flags="...."
+#frr_extralibs_path="... ..."
+#router_enable="NO"
+watchfrr_enable="YES"
